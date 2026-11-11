@@ -1,0 +1,61 @@
+{
+  "name": "@brilliant-hq/mcp",
+  "version": "0.1.10",
+  "mcpName": "design.brilliant/mcp",
+  "description": "No-config local MCP bridge for brilliant.design: a dumb stdio<->loopback router. Your coding agent drives your live web tab (or the desktop app); zero bytes of MCP or design data touch Brilliant's servers.",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "design",
+    "design-tool",
+    "ui-design",
+    "vector",
+    "canvas",
+    "design-system",
+    "figma-alternative",
+    "claude-code",
+    "cursor",
+    "codex",
+    "gemini-cli",
+    "vscode",
+    "ai-agents",
+    "brilliant"
+  ],
+  "homepage": "https://brilliant.design/docs/agents/overview",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brilliant-hq/brilliant-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brilliant-hq/brilliant-mcp/issues"
+  },
+  "author": {
+    "name": "Brilliant",
+    "url": "https://brilliant.design"
+  },
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "brilliant-mcp": "./bin/brilliant-mcp.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "clients.json",
+    "PROTOCOL.md",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "private": false
+}

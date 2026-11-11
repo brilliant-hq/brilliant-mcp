@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "brilliant": {
+      "command": "npx",
+      "args": ["-y", "@brilliant-hq/mcp@0.1.10"],
+      "env": { "BRILLIANT_MCP_SRC": "claude-plugin" }
+    }
+  }
+}

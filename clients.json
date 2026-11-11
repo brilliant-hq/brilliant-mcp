@@ -1,0 +1,330 @@
+{
+  "$comment": [
+    "The canonical MCP client table: the one home for per-client config facts.",
+    "Everything downstream reads this file, zero drift:",
+    "  - the Brilliant desktop app and web editor: a table generated from this file",
+    "  - the npx installer: lib/install.js reads THIS file directly (same package ships it)",
+    "Two surfaces per client:",
+    "  desktop.urlEntry = the DESKTOP app's loopback HTTP MCP server (127.0.0.1:3333/mcp); a URL entry.",
+    "  stdio.entry      = the @brilliant-hq/mcp helper (npx -y @brilliant-hq/mcp); a stdio command entry.",
+    "'$URL' in urlEntry is the placeholder the desktop app fills with the live endpoint (via urlKey).",
+    "configPath.base is 'home' (~) or 'appData' (Windows %APPDATA%). segments join under it.",
+    "'verified' lists the official-doc source URLs each row's syntax was checked against (2026-08).",
+    "A note that starts 'DRIFT:' records where a shipped desktop value and the client's current docs differed, and which one this row now holds."
+  ],
+  "package": "@brilliant-hq/mcp",
+  "stdioCommand": "npx -y @brilliant-hq/mcp",
+  "clients": [
+    {
+      "id": "claude-code",
+      "displayName": "Claude Code",
+      "format": "json",
+      "container": ["mcpServers"],
+      "urlKey": "url",
+      "restartHint": "Restart Claude Code to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".claude.json"] },
+        "windows": { "base": "home", "segments": [".claude.json"] },
+        "linux": { "base": "home", "segments": [".claude.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "type": "http", "url": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "type": "stdio", "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": "claude mcp add brilliant -- npx -y @brilliant-hq/mcp",
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "URL entry REQUIRES type:http (a bare url with no type is a hard config error). stdio: no-type => stdio, type:stdio optional. CLI `claude mcp add <name> -- <cmd>` (the -- is required).",
+      "verified": ["https://code.claude.com/docs/en/mcp"]
+    },
+    {
+      "id": "cursor",
+      "displayName": "Cursor",
+      "format": "json",
+      "container": ["mcpServers"],
+      "urlKey": "url",
+      "restartHint": "Restart Cursor to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".cursor", "mcp.json"] },
+        "windows": { "base": "home", "segments": [".cursor", "mcp.json"] },
+        "linux": { "base": "home", "segments": [".cursor", "mcp.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "url": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "No CLI add subcommand. Remote entry uses bare url (no type). Deep link: the `cursor://anysphere.cursor-deeplink/mcp/install?name=<name>&config=<base64(entryJson)>` form is community-widespread but UNVERIFIED against Cursor's official deeplink reference (which documents the host but only prompt/command/rule paths): left null until confirmable.",
+      "verified": ["https://cursor.com/docs/context/mcp", "https://cursor.com/docs/reference/deeplinks"]
+    },
+    {
+      "id": "vscode",
+      "displayName": "VS Code",
+      "format": "jsonc",
+      "container": ["servers"],
+      "urlKey": "url",
+      "restartHint": "Reload VS Code to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": ["Library", "Application Support", "Code", "User", "mcp.json"] },
+        "windows": { "base": "appData", "segments": ["Code", "User", "mcp.json"] },
+        "linux": { "base": "home", "segments": [".config", "Code", "User", "mcp.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "type": "http", "url": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": "code --add-mcp '{\"name\":\"brilliant\",\"command\":\"npx\",\"args\":[\"-y\",\"@brilliant-hq/mcp\"]}'",
+      "deepLink": "vscode:mcp/install?<urlencoded JSON.stringify({name,command,args})>",
+      "cmdWrap": true,
+      "notes": "Container is `servers` (NOT mcpServers). User config is JSONC. Remote REQUIRES type:http. stdio omits type in official examples. CLI `code --add-mcp '<json>'` where json carries a name field. Deep-link scheme `vscode:mcp/install?<urlencoded-json>` is verified; the insiders.vscode.dev redirect form is UNVERIFIED.",
+      "verified": ["https://code.visualstudio.com/docs/copilot/customization/mcp-servers", "https://code.visualstudio.com/api/extension-guides/ai/mcp"]
+    },
+    {
+      "id": "codex",
+      "displayName": "Codex CLI / ChatGPT app",
+      "format": "toml",
+      "tomlTable": "mcp_servers",
+      "restartHint": "Restart your Codex session (or the ChatGPT desktop app) to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".codex", "config.toml"] },
+        "windows": { "base": "home", "segments": [".codex", "config.toml"] },
+        "linux": { "base": "home", "segments": [".codex", "config.toml"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "url": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": "codex mcp add brilliant -- npx -y @brilliant-hq/mcp",
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "TOML [mcp_servers.<name>]. Streamable-HTTP uses url = \"...\" in the same table (no transport flag). stdio uses command/args. The Brilliant desktop app also registers Codex in this section. `codex mcp add <name> -- <cmd>` verified to exist. The ChatGPT desktop app reads the SAME ~/.codex/config.toml mcp_servers table, so this one entry serves both surfaces; never add a second row for it, that would double-write the file.",
+      "verified": ["https://learn.chatgpt.com/docs/config-file/config-reference", "https://learn.chatgpt.com/docs/extend/mcp?surface=cli"]
+    },
+    {
+      "id": "gemini",
+      "displayName": "Gemini CLI",
+      "format": "json",
+      "container": ["mcpServers"],
+      "urlKey": "httpUrl",
+      "restartHint": "Restart your Gemini CLI session to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".gemini", "settings.json"] },
+        "windows": { "base": "home", "segments": [".gemini", "settings.json"] },
+        "linux": { "base": "home", "segments": [".gemini", "settings.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "httpUrl": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": "gemini mcp add brilliant -- npx -y @brilliant-hq/mcp",
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "httpUrl selects streamable HTTP; a bare url would select SSE (load-bearing distinction). stdio uses command/args. `gemini mcp add <name> -- <cmd>` verified; `-t http <name> <url>` for the remote form.",
+      "verified": ["https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md"]
+    },
+    {
+      "id": "antigravity",
+      "displayName": "Antigravity",
+      "format": "json",
+      "container": ["mcpServers"],
+      "urlKey": "serverUrl",
+      "restartHint": "Restart Antigravity to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".gemini", "config", "mcp_config.json"] },
+        "windows": { "base": "home", "segments": [".gemini", "config", "mcp_config.json"] },
+        "linux": { "base": "home", "segments": [".gemini", "config", "mcp_config.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "serverUrl": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "Uses serverUrl (url/httpUrl explicitly NOT supported). stdio uses command/args. No terminal CLI (in-app /mcp + MCP Store only). DRIFT: shipped config path is ~/.gemini/antigravity/mcp_config.json; 2026-08 official docs say ~/.gemini/config/mcp_config.json (global) or .agents/mcp_config.json (workspace). FLIPPED to the documented path (2026-08-16); old installs at ~/.gemini/antigravity/ re-toggle once.",
+      "verified": ["https://antigravity.google/docs/mcp"]
+    },
+    {
+      "id": "windsurf",
+      "displayName": "Windsurf",
+      "format": "json",
+      "container": ["mcpServers"],
+      "urlKey": "serverUrl",
+      "restartHint": "Restart Windsurf to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".codeium", "windsurf", "mcp_config.json"] },
+        "windows": { "base": "home", "segments": [".codeium", "windsurf", "mcp_config.json"] },
+        "linux": { "base": "home", "segments": [".codeium", "windsurf", "mcp_config.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "serverUrl": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "Uses serverUrl (not url) for HTTP. stdio uses command/args. Deep-link `windsurf://windsurf-mcp-registry?serverName=<name>` exists but is REGISTRY-only (marketplace entry), cannot inject a custom local server, so left null.",
+      "verified": ["https://docs.devin.ai/desktop/cascade/mcp"]
+    },
+    {
+      "id": "zed",
+      "displayName": "Zed",
+      "format": "jsonc",
+      "container": ["context_servers"],
+      "urlKey": "url",
+      "restartHint": "Restart Zed to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".config", "zed", "settings.json"] },
+        "windows": { "base": "appData", "segments": ["Zed", "settings.json"] },
+        "linux": { "base": "home", "segments": [".config", "zed", "settings.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "url": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "settings.json is JSONC. context_servers container. stdio is flat command/args (verified). DRIFT: shipped desktop urlEntry is {source:custom,url}; 2026-08 Zed main-branch docs show a bare {url} for remote (source dropped; the nested source:custom form was the OLD stdio shape). FLIPPED to the documented bare {url} (2026-08-16). Windows path %APPDATA%\\Zed is unverified (kept as shipped).",
+      "verified": ["https://zed.dev/docs/ai/mcp", "https://raw.githubusercontent.com/zed-industries/zed/main/docs/src/ai/mcp.md"]
+    },
+    {
+      "id": "opencode",
+      "displayName": "OpenCode",
+      "format": "jsonc",
+      "container": ["mcp"],
+      "urlKey": "url",
+      "restartHint": "Restart your OpenCode session to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".config", "opencode", "opencode.json"] },
+        "windows": { "base": "home", "segments": [".config", "opencode", "opencode.json"] },
+        "linux": { "base": "home", "segments": [".config", "opencode", "opencode.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "type": "remote", "url": "$URL", "enabled": true }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "type": "local", "command": ["npx", "-y", "@brilliant-hq/mcp"], "enabled": true }
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "HTTP (remote): {type:remote,url,enabled} (verified, matches shipped). stdio (local): {type:local,command:[array],enabled}: command is a single array, not command/args; env key is `environment`. `opencode mcp add` CLI exists but exact stdio arg syntax is not documented on the MCP page, so webConnectCommand stays the universal npx one-liner (future: wire the CLI add once syntax is confirmed).",
+      "verified": ["https://opencode.ai/docs/mcp-servers/", "https://raw.githubusercontent.com/sst/opencode/dev/packages/web/src/content/docs/mcp-servers.mdx"]
+    },
+    {
+      "id": "amp",
+      "displayName": "Amp",
+      "format": "jsonc",
+      "container": ["amp.mcpServers"],
+      "urlKey": "url",
+      "restartHint": "Restart Amp to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".config", "amp", "settings.json"] },
+        "windows": { "base": "home", "segments": [".config", "amp", "settings.json"] },
+        "linux": { "base": "home", "segments": [".config", "amp", "settings.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "url": "$URL" }
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": "amp mcp add brilliant -- npx -y @brilliant-hq/mcp",
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "Container is the ONE flat dotted key `amp.mcpServers` (not a nested amp object). Remote entry is a bare {url} (the CLI help says `amp mcp add <name> <url>` is a remote server with auto-detected transport). stdio is command/args. The Amp CLI (0.0.1790251618, 2026-09-24) reads and rewrites a settings.json carrying // comments, so JSONC. `amp mcp add <name> -- <cmd>` verified against the real CLI help. Windows path %USERPROFILE%\\.config\\amp is inferred from ~ (unverified on a Windows box). Workspace .amp/settings.json is not written (needs per-workspace approval in Amp).",
+      "verified": ["https://ampcode.com/docs/customize/mcp"]
+    },
+    {
+      "id": "muse",
+      "displayName": "Muse Code",
+      "format": "json",
+      "container": ["mcpServers"],
+      "legacyContainer": "mcp_servers",
+      "requiredTopLevel": { "schema_version": 1 },
+      "urlKey": "url",
+      "restartHint": "Restart your muse session to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": [".config", "muse", "settings.json"] },
+        "windows": { "base": "home", "segments": [".config", "muse", "settings.json"] },
+        "linux": { "base": "home", "segments": [".config", "muse", "settings.json"] }
+      },
+      "desktop": {
+        "supported": true,
+        "urlEntry": { "transport": "streamable_http", "url": "$URL", "mode": "optional" }
+      },
+      "stdio": {
+        "supported": false
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "Muse Code (Meta, binary `muse`). Verified against the docs bundled in the Muse Code 1.4.6 binary (no public doc URL) and probed on a temp home: the file is ${XDG_CONFIG_HOME:-$HOME/.config}/muse/settings.json, the container is camelCase `mcpServers`; the snake `mcp_servers` still loads alone but is LEGACY, and both keys at once fault the whole MCP member (`muse mcp login` says 'MCP configuration is faulted'), so the writer renames a legacy-only `mcp_servers` (legacyContainer). A missing or unsupported top-level schema_version refuses the file ('missing field `schema_version`', 'unsupported settings schema version 99'), so the writer adds `schema_version: 1` when absent (requiredTopLevel) and never rewrites a present one. Entry: transport streamable_http + url + mode optional (Muse docs: always write mode optional, never mode and required together). `muse mcp` has only OAuth login/logout, no add subcommand, so cliAdd is null and the stdio installer does not configure Muse (it would need the same two laws in the JS writer). Windows: Muse documents only $XDG_CONFIG_HOME or $HOME/.config (no %APPDATA% root anywhere in the binary), so the home path holds on every OS (unverified on a Windows box). XDG_CONFIG_HOME is not honoured by the desktop writer.",
+      "verified": []
+    },
+    {
+      "id": "claude-desktop",
+      "displayName": "Claude Desktop",
+      "format": "json",
+      "container": ["mcpServers"],
+      "restartHint": "Restart Claude Desktop to connect.",
+      "configPath": {
+        "macos": { "base": "home", "segments": ["Library", "Application Support", "Claude", "claude_desktop_config.json"] },
+        "windows": { "base": "appData", "segments": ["Claude", "claude_desktop_config.json"] },
+        "linux": { "base": "home", "segments": ["Library", "Application Support", "Claude", "claude_desktop_config.json"] }
+      },
+      "desktop": {
+        "supported": false,
+        "unavailableReason": "Claude Desktop's config supports only local stdio servers; remote HTTP connections aren't supported yet."
+      },
+      "stdio": {
+        "supported": true,
+        "entry": { "command": "npx", "args": ["-y", "@brilliant-hq/mcp"] }
+      },
+      "cliAdd": null,
+      "deepLink": null,
+      "cmdWrap": true,
+      "notes": "FLIPS from unsupported (desktop URL surface: stdio-only config can't take a remote HTTP URL) to SUPPORTED for the stdio helper: the npx installer CAN configure it; the desktop settings toggle cannot. No CLI add; JSON file only. Config file is macOS/Windows only officially; Linux path (~/Library/Application Support/Claude) is Brilliant's shipped fallback, NOT an official Anthropic path.",
+      "verified": ["https://modelcontextprotocol.io/quickstart/user"]
+    }
+  ]
+}

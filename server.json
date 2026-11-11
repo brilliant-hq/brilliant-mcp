@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "design.brilliant/mcp",
+  "title": "Brilliant",
+  "description": "Your coding agent designs with you on a real vector canvas: UIs, pages, components, export.",
+  "version": "0.1.10",
+  "websiteUrl": "https://brilliant.design/docs/agents/overview",
+  "icons": [
+    {
+      "src": "https://brilliant.design/images/brilliant-app-icon.png",
+      "mimeType": "image/png",
+      "sizes": ["512x512"]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@brilliant-hq/mcp",
+      "version": "0.1.10",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
