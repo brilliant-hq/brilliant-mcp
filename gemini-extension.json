@@ -1,0 +1,17 @@
+{
+  "name": "brilliant-design",
+  "version": "0.1.11",
+  "description": "Design canvas for coding agents: real editable vectors, auto layout, components, export to code.",
+  "mcpServers": {
+    "brilliant": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@brilliant-hq/mcp@0.1.11"
+      ],
+      "env": {
+        "BRILLIANT_MCP_SRC": "gemini-extension"
+      }
+    }
+  }
+}

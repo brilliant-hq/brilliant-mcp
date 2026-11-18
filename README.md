@@ -1,4 +1,10 @@
-# Brilliant MCP
+# Brilliant Design: a design canvas for coding agents (MCP server)
+
+Design canvas for coding agents: real editable vectors, auto layout, components, export to code.
+
+```
+npx -y @brilliant-hq/mcp install <client>
+```
 
 **Your coding agent designs with you on a real vector canvas.** This is the local
 MCP server for [Brilliant](https://brilliant.design), the design tool whose canvas
@@ -122,6 +128,20 @@ JSONC comments, and `--remove` is its exact inverse.
 npm install
 npm test
 ```
+
+## Docker
+
+The `Dockerfile` builds the same stdio server for registries that build and
+inspect it (`initialize`, `tools/list`):
+
+```
+docker build -t brilliant-mcp .
+docker run -i --rm brilliant-mcp
+```
+
+To design, run the server on your own machine with the commands under Install:
+it pairs with a Brilliant tab or the desktop app over `127.0.0.1`, which a
+container cannot reach.
 
 ## Pricing
 

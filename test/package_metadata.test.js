@@ -34,6 +34,30 @@ test("server.json names this package at this version (the registry verifies mcpN
   assert.equal(server.packages[0].transport.type, "stdio");
 });
 
+test("every listing reads one name and one line: npm, the registry entry and the Gemini CLI extension", () => {
+  const line = "Design canvas for coding agents: real editable vectors, auto layout, components, export to code.";
+  assert.equal(pkg.description, line);
+  assert.equal(server.description, line);
+  assert.ok(server.description.length <= 100, "the registry refuses a description over 100 characters");
+  assert.equal(server.title, "Brilliant Design");
+  assert.equal(server.remotes, undefined, "no remote until the hosted endpoint is proven in a coding agent");
+  assert.ok(read("README.md").slice(0, 200).startsWith("# Brilliant Design: a design canvas for coding agents (MCP server)\n\n" + line));
+  const gemini = JSON.parse(read("gemini-extension.json"));
+  assert.equal(gemini.version, pkg.version);
+  assert.equal(gemini.description, line);
+  assert.equal(gemini.mcpServers.brilliant.command, "npx");
+  assert.deepEqual(gemini.mcpServers.brilliant.args, ["-y", `${pkg.name}@${pkg.version}`]);
+});
+
+test("the files a directory builds and claims from are at the repo root", () => {
+  const glama = JSON.parse(read("glama.json"));
+  assert.equal(glama.$schema, "https://glama.ai/mcp/schemas/server.json");
+  assert.ok(Array.isArray(glama.maintainers) && glama.maintainers.length > 0);
+  assert.match(read("Dockerfile"), /ENTRYPOINT \["node", "bin\/brilliant-mcp\.js"\]/);
+  // Repo files, never package files: npm ships only what runs.
+  for (const f of ["glama.json", "Dockerfile", "gemini-extension.json", "server.json"]) assert.ok(!pkg.files.includes(f), `${f} stays out of the npm package`);
+});
+
 test("the Claude Code plugin pins exactly this version (a directory refuses an unpinned npx launcher)", () => {
   // The plugin sits beside this package in the source tree and under plugin/ in the public repo.
   const beside = new URL("../../", import.meta.url);
