@@ -1,0 +1,21 @@
+{
+  "name": "brilliant",
+  "displayName": "Brilliant Design",
+  "version": "1.0.0",
+  "description": "Design pages, app screens, dashboards and posts as real, editable layers. Claude builds the design and changes it as you talk, and you open it in the Brilliant editor in your browser.",
+  "author": {
+    "name": "Brilliant Design Ltd.",
+    "email": "hello@brilliant.design",
+    "url": "https://brilliant.design"
+  },
+  "homepage": "https://brilliant.design",
+  "repository": "https://github.com/brilliant-hq/brilliant-mcp",
+  "license": "Apache-2.0",
+  "keywords": ["design", "ui-design", "mockup", "wireframe", "landing-page", "canvas", "vector", "design-review", "figma-import"],
+  "icon": "./assets/logo.png",
+  "network": { "hosts": ["brilliant.design"] },
+  "documentationUrl": "https://brilliant.design/docs/agents/claude",
+  "supportUrl": "https://brilliant.design/contact",
+  "privacyPolicyUrl": "https://brilliant.design/privacy",
+  "termsOfServiceUrl": "https://brilliant.design/terms"
+}
