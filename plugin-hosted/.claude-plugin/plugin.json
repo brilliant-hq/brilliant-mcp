@@ -13,7 +13,6 @@
   "license": "Apache-2.0",
   "keywords": ["design", "ui-design", "mockup", "wireframe", "landing-page", "canvas", "vector", "design-review", "figma-import"],
   "icon": "./assets/logo.png",
-  "network": { "hosts": ["brilliant.design"] },
   "documentationUrl": "https://brilliant.design/docs/agents/claude",
   "supportUrl": "https://brilliant.design/contact",
   "privacyPolicyUrl": "https://brilliant.design/privacy",
