@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "brilliant": {
+      "type": "http",
+      "url": "https://brilliant.design/mcp"
+    },
+    "brilliant-canvas": {
+      "command": "npx",
+      "args": ["-y", "@brilliant-hq/mcp@0.1.11"],
+      "env": {
+        "BRILLIANT_MCP_SRC": "codex-plugin"
+      }
+    }
+  }
+}

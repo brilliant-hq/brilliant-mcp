@@ -1,0 +1,8 @@
+interface:
+  display_name: Brilliant Design
+  short_description: Design editable UI, pages and graphics on a Brilliant canvas
+  default_prompt: Use $brilliant-design to design a landing page for my product that I can edit by hand.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true

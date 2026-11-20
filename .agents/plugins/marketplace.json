@@ -1,0 +1,20 @@
+{
+  "name": "brilliant",
+  "interface": {
+    "displayName": "Brilliant"
+  },
+  "plugins": [
+    {
+      "name": "brilliant",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugin/brilliant"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Creativity"
+    }
+  ]
+}

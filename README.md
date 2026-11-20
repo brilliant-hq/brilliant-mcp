@@ -39,6 +39,17 @@ standard stdio entry:
 
 Requires Node 20 or newer. No API key.
 
+## Codex plugin
+
+This repository is also a Codex plugin marketplace. The plugin lives in
+[`codex-plugin/brilliant`](./codex-plugin/brilliant) and adds a design skill, the hosted
+Brilliant tools (`https://brilliant.design/mcp`, no account) and this local server:
+
+```
+codex plugin marketplace add brilliant-hq/brilliant-mcp
+codex plugin add brilliant@brilliant
+```
+
 ## First run
 
 Ask your agent for a design: "design a pricing page for this app". With no

@@ -1,0 +1,54 @@
+{
+  "name": "brilliant",
+  "version": "1.0.0",
+  "description": "Design pages, screens and posts as editable layers on a Brilliant canvas from Codex, and remove the background from a photo.",
+  "author": {
+    "name": "Brilliant Design Ltd.",
+    "email": "hello@brilliant.design",
+    "url": "https://brilliant.design"
+  },
+  "homepage": "https://brilliant.design/docs/agents/overview",
+  "repository": "https://github.com/brilliant-hq/brilliant-mcp",
+  "license": "Apache-2.0",
+  "keywords": [
+    "design",
+    "ui-design",
+    "mockup",
+    "wireframe",
+    "landing page",
+    "app screen",
+    "dashboard",
+    "canvas",
+    "vector",
+    "design-system",
+    "remove background"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json",
+  "interface": {
+    "displayName": "Brilliant Design",
+    "shortDescription": "Editable UI and web design",
+    "longDescription": "Brilliant is an AI design tool for editable UI and UX design. From Codex it creates websites and landing pages, mobile and web app screens, dashboards, wireframes and mockups, slides, social posts and posters as real, editable layers.\n\nAsk for a design and Codex builds it on a Brilliant canvas, then hands you the link. Open it in a browser and every element is a real layer you can edit: drag it, retype the copy, change a color, resize a card. Ask Codex for the next change and the same canvas updates while the tab is open. Codex reads the finished canvas back, so what it says matches what you see.\n\nWorking in a repository, connect the local Brilliant canvas and Codex designs with your codebase's real tokens, checks its own work visually, and exports the agreed design as HTML or React.\n\nIt also removes the background from a photo and returns a clean cutout with a transparent background and a link to share it.\n\nNo design skill needed, and the hosted tools need no account.\n\nLimits: designs made through the hosted tools are scratch designs. They expire after 30 days unless you open them in Brilliant and keep them. Cutouts expire after 24 hours. The hosted tools make static designs, not code or clickable prototypes.",
+    "developerName": "Brilliant Design Ltd.",
+    "category": "Creativity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://brilliant.design",
+    "supportURL": "https://brilliant.design/contact",
+    "privacyPolicyURL": "https://brilliant.design/privacy",
+    "termsOfServiceURL": "https://brilliant.design/terms",
+    "defaultPrompt": [
+      "Design a landing page for my coffee subscription startup",
+      "Wireframe a mobile app settings screen I can edit",
+      "Mock up an analytics dashboard for my SaaS"
+    ],
+    "brandColor": "#0080FF",
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png",
+    "screenshots": []
+  }
+}
