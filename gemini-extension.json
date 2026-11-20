@@ -2,6 +2,7 @@
   "name": "brilliant-design",
   "version": "0.1.11",
   "description": "Design canvas for coding agents: real editable vectors, auto layout, components, export to code.",
+  "contextFileName": "GEMINI.md",
   "mcpServers": {
     "brilliant": {
       "command": "npx",

@@ -50,6 +50,23 @@ codex plugin marketplace add brilliant-hq/brilliant-mcp
 codex plugin add brilliant@brilliant
 ```
 
+## Gemini CLI extension
+
+This repository is also a Gemini CLI extension (`gemini-extension.json` at the root). It adds
+this local server and a context file, [`GEMINI.md`](./GEMINI.md), that tells Gemini when to
+design on the canvas and which call to make first:
+
+```
+gemini extensions install https://github.com/brilliant-hq/brilliant-mcp
+```
+
+## Kiro power
+
+[`kiro-power`](./kiro-power) is a Kiro power in the Agent Plugins format: a manifest with the
+keywords that activate it (design, mockup, wireframe and more), a design skill and this local
+server. In Kiro, open the Powers panel, choose Add Custom Power, then Import power from GitHub,
+and give it `https://github.com/brilliant-hq/brilliant-mcp/tree/main/kiro-power`.
+
 ## First run
 
 Ask your agent for a design: "design a pricing page for this app". With no

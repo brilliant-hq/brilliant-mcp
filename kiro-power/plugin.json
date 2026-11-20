@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "brilliant-design",
+  "version": "1.0.0",
+  "description": "Design UI screens, pages, components and design systems with your agent on Brilliant's vector canvas: editable layers you both edit, reviewed visually, exported as code.",
+  "author": {
+    "name": "Brilliant Design Ltd.",
+    "email": "hello@brilliant.design",
+    "url": "https://brilliant.design"
+  },
+  "keywords": [
+    "design",
+    "ui design",
+    "ux",
+    "mockup",
+    "wireframe",
+    "prototype",
+    "landing page",
+    "app screen",
+    "dashboard",
+    "layout",
+    "canvas",
+    "vector",
+    "design system",
+    "design tokens",
+    "figma",
+    "brilliant"
+  ],
+  "homepage": "https://brilliant.design/docs/agents/overview",
+  "repository": "https://github.com/brilliant-hq/brilliant-mcp",
+  "license": "Apache-2.0"
+}

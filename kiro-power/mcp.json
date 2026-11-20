@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "brilliant": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@brilliant-hq/mcp"],
+      "env": {
+        "BRILLIANT_MCP_SRC": "kiro-power"
+      }
+    }
+  }
+}
