@@ -1,0 +1,21 @@
+{
+  "name": "brilliant-design",
+  "description": "Design with your agent on Brilliant's real vector canvas: screens, components and design systems you both edit, reviewed visually, exported as code.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Brilliant",
+    "email": "hello@brilliant.design"
+  },
+  "homepage": "https://brilliant.design/docs/agents/cursor",
+  "repository": "https://github.com/brilliant-hq/brilliant-mcp",
+  "license": "Apache-2.0",
+  "keywords": ["design", "ui-design", "canvas", "vector", "design-system", "figma-import", "design-review", "mcp"],
+  "logo": "plugin/assets/logo.png",
+  "skills": "plugin/skills",
+  "mcpServers": {
+    "brilliant": {
+      "command": "npx",
+      "args": ["-y", "@brilliant-hq/mcp"]
+    }
+  }
+}
